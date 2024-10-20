@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    <!--
+    3
+    import pandas as pd
+    import numpy as np
+    from sklearn.compose import ColumnTransformer
+    from sklearn.pipeline import Pipeline
+    from sklearn.impute import SimpleImputer
+    from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+
+    data = {
+        'size': ['S','M',np.nan,'XL','XL'],
+        'color': ['red', 'blue', 'blue', 'black', np.nan],
+        'price': [2100, np.nan, 4500, 7300, 3200],
+        'quantity': [np.nan, 350, np.nan, 200, 10]
+    }
+    df = pd.DataFrame(data)
+
+    numeric_features = ['price', 'quantity']
+    categorical_features = ['size', 'color']
+
+    numeric_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='median')),
+        ('scaler', MinMaxScaler())
+    ])
+
+    categorical_transformer = Pipeline(steps=[
+        ('imputer', SimpleImputer(strategy='most_frequent')),
+        ('onehot', OneHotEncoder())
+    ])
+
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ('num', numeric_transformer, numeric_features),
+            ('cat', categorical_transformer, categorical_features)
+        ])
+
+    df_processed = preprocessor.fit_transform(df)
+
+    df_processed
+
+    encoded_categories = preprocessor.named_transformers_['cat']['onehot'].get_feature_names_out(categorical_features)
+
+    df_final = pd.DataFrame(df_processed, columns=numeric_features + list(encoded_categories))
+    df_final[['price', 'quantity']] = df_final[['price', 'quantity']].round(2)
+
+    df_final-->
+</script>
+</html>
